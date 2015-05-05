@@ -1,6 +1,6 @@
 # Illiad/Alma NCIP Plug-in
 
-Author: [Tom McNulty](mailto:mcnultytm@vcu.edu), VCU Libraries
+Author: [Tom McNulty](mailto:tmcnulty@vcu.edu), VCU Libraries
 
 This plug-in is based on the work of Hank Sway and Bill Jones for Harvard via IDS Group.  Originally the plug-in was designed for Aleph and ILLiad interaction via NCIP and I have modified their code with the help of Moshe Shechter at Ex Libris and Shawn Styer at Atlas Systems to work with Alma. You may find it helpful to look at [the original ILLiad NCIP plug-in and documentation](https://prometheus.atlas-sys.com/display/ILLiadAddons/IDS+NCIP+Client). I am happy to help with any questions or issues encountered in the process of implementing this plug-in but alas, I am but one man with a full time job so I cannot be the full technical support for any library hoping to run this plug-in.  If you implement this plug-in I recommend that you are or have technically qualified staff available to troubleshoot issues.
 
