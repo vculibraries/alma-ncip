@@ -314,10 +314,7 @@ local title = GetFieldValue("Transaction", "LoanTitle");
 	end
 	
 local pickup_location_full = GetFieldValue("Transaction", "Location");
-local sublibraries = assert(io.open("C:\\Program Files (x86)\\ILLiad\\Addons\\Alma-NCIP\\sublibraries.txt", "r"));
-	if sublibraries == nil then
-		sublibraries = assert(io.open("C:\\Program Files\\ILLiad\\Addons\\Alma-NCIP\\sublibraries.txt", "r"));
-	end	
+local sublibraries = assert(io.open(AddonInfo.Directory .. "\\sublibraries.txt", "r"));	
 local pickup_location = "";
 local templine = nil;
 	if sublibraries ~= nil then
