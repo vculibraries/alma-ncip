@@ -170,6 +170,7 @@ function BorrowingCheckInItem(transactionProcessedEventArgs)
 	end
 end
 
+
 --Lending Functions
 function LendingCheckOutItem(transactionProcessedEventArgs)
 	LogDebug("DEBUG -- LendingCheckOutItem - start");
@@ -313,22 +314,22 @@ local title = GetFieldValue("Transaction", "LoanTitle");
 		title = string.gsub(title, "&", "and");
 	end
 	
-local pickup_location_full = GetFieldValue("Transaction", "Location");
-local sublibraries = assert(io.open(AddonInfo.Directory .. "\\sublibraries.txt", "r"));	
-local pickup_location = "";
+--account for multiple site pickup locations
 local templine = nil;
-	if sublibraries ~= nil then
-		for line in sublibraries:lines() do
-			if string.find(line, pickup_location_full) ~= nil then
-				pickup_location = string.sub(line, line:len() - 2);
-				break;
-				
-			else
-				pickup_location = "nothing";
-			end
-		end
-		sublibraries:close();
-	end
+local pickup_location = "";
+local pickup_location_full = GetFieldValue("Transaction", "Site");
+	if pickup_location_full == "Architecture" then pickup_location = "arch";
+	elseif pickup_location_full == "East Asian" then pickup_location = "eastasian";
+	elseif pickup_location_full == "Engineering" then pickup_location = "engineer";
+ 	elseif pickup_location_full == "Firestone" then pickup_location = "firestone";
+	elseif pickup_location_full == "Lewis" then pickup_location = "lewis";
+	elseif pickup_location_full == "Marquand" then pickup_location = "marquand";
+	elseif pickup_location_full == "Music" then pickup_location = "mendel";
+	elseif pickup_location_full == "PPL" then pickup_location = "plasma";
+	elseif pickup_location_full == "Stokes" then pickup_location = "stokes";
+  	else
+    	pickup_location =  "EMPTY";
+end
 
 local m = '';
     m = m .. '<?xml version="1.0" encoding="ISO-8859-1"?>'
@@ -357,7 +358,7 @@ local m = '';
 	m = m .. '<ItemIdentifierValue>' .. tn .. '</ItemIdentifierValue>'
 	m = m .. '</ItemId>'
 	m = m .. '<DateForReturn>' .. yr .. '-' .. mnt .. '-' .. dya .. 'T23:59:00' .. '</DateForReturn>'
---  m = m .. '<PickupLocation>' .. pickup_location .. '</PickupLocation>'
+    m = m .. '<PickupLocation>' .. pickup_location .. '</PickupLocation>'
 	m = m .. '<ItemOptionalFields>'
 	m = m .. '<BibliographicDescription>'
 	m = m .. '<Author>' .. author .. '</Author>'
@@ -424,12 +425,12 @@ end
 function buildCheckInItemLending()
 local ttype = "";
 local user = GetFieldValue("Transaction", "Username");
-local refnumber = GetFieldValue("Transaction", "ReferenceNumber");
+local itemnumber = GetFieldValue("Transaction", "ItemNumber");
 local trantype = GetFieldValue("Transaction", "ProcessType");
 	if trantype == "Borrowing" then
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");		
 	elseif trantype == "Lending" then
-		ttype = GetFieldValue("Transaction", "ReferenceNumber");
+		ttype = GetFieldValue("Transaction", "ItemNumber");
 	else
 		ttype = Settings.checkInItem_Transaction_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 	end
@@ -452,7 +453,7 @@ local cil = '';
 	cil = cil .. '</UserId>'
 	cil = cil .. '<ItemId>'
 	cil = cil .. '<AgencyId>' .. Settings.acceptItem_from_uniqueAgency_value .. '</AgencyId>'
-	cil = cil .. '<ItemIdentifierValue>' .. refnumber .. '</ItemIdentifierValue>'
+	cil = cil .. '<ItemIdentifierValue>' .. itemnumber .. '</ItemIdentifierValue>'
 	cil = cil .. '</ItemId>'
 	cil = cil .. '<RequestId>'
 	cil = cil .. '<AgencyId>' .. Settings.acceptItem_from_uniqueAgency_value .. '</AgencyId>'
@@ -471,7 +472,7 @@ local mn, dy, yr = string.match(df, "(%d+)/(%d+)/(%d+)");
 local mnt = string.format("%02d",mn);
 local dya = string.format("%02d",dy);
 local pseudopatron = 'pseudopatron';
-local refnumber = GetFieldValue("Transaction", "ReferenceNumber");
+local itemnumber = GetFieldValue("Transaction", "ItemNumber");
 local tn = Settings.checkOutItem_RequestIdentifierValue_Prefix .. GetFieldValue("Transaction", "TransactionNumber");
 local coi = '';
     coi = coi .. '<?xml version="1.0" encoding="ISO-8859-1"?>'
@@ -491,7 +492,7 @@ local coi = '';
 	coi = coi .. '</UserId>'
 	coi = coi .. '<ItemId>'
 	coi = coi .. '<AgencyId>' .. Settings.acceptItem_from_uniqueAgency_value .. '</AgencyId>'
-	coi = coi .. '<ItemIdentifierValue>' .. refnumber .. '</ItemIdentifierValue>'
+	coi = coi .. '<ItemIdentifierValue>' .. itemnumber .. '</ItemIdentifierValue>'
 	coi = coi .. '</ItemId>'
 	coi = coi .. '<RequestId>'
 	coi = coi .. '<AgencyId>' .. Settings.acceptItem_from_uniqueAgency_value .. '</AgencyId>'

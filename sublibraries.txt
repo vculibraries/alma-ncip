@@ -1,5 +1,9 @@
-Widener,WID
-Lamont,LAM
-Baker,BAK
-Tozzer,TOZ
-Wolbach,WOL
+Architecture,arch
+East Asian,eastasian
+Engineering,engineer
+Firestone,firestone
+Lewis,lewis
+Marquand,marquand
+Music,mendel
+PPL,plasma
+Stokes,stokes
