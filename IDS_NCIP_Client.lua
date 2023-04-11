@@ -2,6 +2,7 @@
 --
 --Author:  Bill Jones III, SUNY Geneseo, IDS Project, jonesw@geneseo.edu
 --Modified by: Tom McNulty, VCU Libraries, tmcnulty@vcu.edu
+--Modeified by: Kevin Reiss, Princeton University Library, kr2@princeton.edu
 --System Addon used for ILLiad to communicate with Alma through NCIP protocol
 --
 --Description of Registered Event Handlers for ILLiad
@@ -280,8 +281,8 @@ local mn, dy, yr = string.match(df, "(%d+)/(%d+)/(%d+)");
 local mnt = string.format("%02d",mn);
 local dya = string.format("%02d",dy);
 local user = GetFieldValue("Transaction", "Username");
+local t = GetFieldValue("Transaction", "TransactionNumber");
 if Settings.Use_Prefixes then
-	local t = GetFieldValue("Transaction", "TransactionNumber");
 	if GetFieldValue("Transaction", "LibraryUseOnly") and GetFieldValue("Transaction", "RenewalsAllowed") then
 	    tn = Settings.Prefix_for_LibraryUseOnly_and_RenewablesAllowed .. t;
 	end
@@ -354,7 +355,7 @@ local m = '';
 	m = m .. '<UserIdentifierValue>' .. user .. '</UserIdentifierValue>'
 	m = m .. '</UserId>'
 	m = m .. '<ItemId>'
-	m = m .. '<ItemIdentifierValue>' .. tn .. '</ItemIdentifierValue>'
+	m = m .. '<ItemIdentifierValue>' .. t .. '</ItemIdentifierValue>'
 	m = m .. '</ItemId>'
 	m = m .. '<DateForReturn>' .. yr .. '-' .. mnt .. '-' .. dya .. 'T23:59:00' .. '</DateForReturn>'
 --  m = m .. '<PickupLocation>' .. pickup_location .. '</PickupLocation>'

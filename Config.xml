@@ -45,6 +45,9 @@
     <Setting name="Prefix_for_LibraryUseOnly_and_RenewablesAllowed" value="LU-" type="string">
       <Description>This setting allows you to change the prefix of a transaction that is marked both LibraryUseOnly and RenewalsAllowed Yes.</Description>
     </Setting>
+     <Setting name="checkInItem_Transaction_Prefix" value="TN-" type="string">
+      <Description>Default transaction prefix for the request identifier value in NCIP calls.</Description>
+    </Setting>
   </Settings>
   <Files>
     <File>IDS_NCIP_Client.lua</File>
