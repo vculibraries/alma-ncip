@@ -9,13 +9,13 @@
   <Description>This system level addon allows for ILLiad to communicate with Alma via NCIP protocol.</Description>
   <Forms />
   <Settings>
-    <Setting name="NCIP_Responder_URL" value="https://alma.exlibrisgroup.com/view/NCIPServlet" type="string">
+    <Setting name="NCIP_Responder_URL" value="https://princeton.alma.exlibrisgroup.com/view/NCIPServlet" type="string">
       <Description>This setting value is the address for the NCIP Responder URL. For Alma this will always be https://alma.exlibrisgroup.com/view/NCIPServlet unless you are testing on a sandbox version of Alma.</Description>
     </Setting>
-	<Setting name="acceptItem_from_uniqueAgency_value" value="01XXX_INST" type="string">
+	<Setting name="acceptItem_from_uniqueAgency_value" value="01PRI_INST" type="string">
       <Description>This is your institutional Alma Code.</Description>
     </Setting>
-    <Setting name="ApplicationProfileType" value="XXX" type="string">
+    <Setting name="ApplicationProfileType" value="ILLIAD" type="string">
       <Description>Input the Resource Sharing Partner code used in Alma.</Description>
     </Setting>
     <Setting name="BorrowingAcceptItemFailQueue" value="NCIP Error: BorrowingAcceptItem Failed" type="string">
@@ -30,10 +30,10 @@
     <Setting name="LendingCheckInItemFailQueue" value="NCIP Error: LendingCheckInItem Failed" type="string">
       <Description>This designates the name of the queue a Lending Transaction will be moved to if the CheckInItem function fails.</Description>
     </Setting>
-    <Setting name="EnablePatronBorrowingReturns" value="false" type="boolean">
+    <Setting name="EnablePatronBorrowingReturns" value="true" type="boolean">
       <Description>When this setting is enabled, patron returns will go through ILLiad and a message is sent to Alma.  When this setting is disabled, patron returns will go through ILLiad and will need to also be returned through Alma.</Description>
     </Setting>
-    <Setting name="Use_Prefixes" value="false" type="boolean">
+    <Setting name="Use_Prefixes" value="true" type="boolean">
       <Description>Determines whether or not you want to change prefixes of a transaction based on specific criteria (below).</Description>
     </Setting>
     <Setting name="Prefix_for_LibraryUseOnly" value="LU-" type="string">
@@ -45,8 +45,11 @@
     <Setting name="Prefix_for_LibraryUseOnly_and_RenewablesAllowed" value="LU-" type="string">
       <Description>This setting allows you to change the prefix of a transaction that is marked both LibraryUseOnly and RenewalsAllowed Yes.</Description>
     </Setting>
+     <Setting name="checkInItem_Transaction_Prefix" value="TN-" type="string">
+      <Description>Default transaction prefix for the request identifier value in NCIP calls.</Description>
+    </Setting>
   </Settings>
   <Files>
-    <File>IDS_NCIP_Client.lua</File>
+    <File>ALMA_NCIP_Client.lua</File>
   </Files>
 </Configuration>
